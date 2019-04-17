@@ -41,29 +41,58 @@
  * 6).
  * 
  */
+// public class Solution {
+//     Dictionary<string, int> map = new Dictionary<string, int>();
+//     public int NumDecodings(string s) {
+//         //basic memorization recurtion way
+//         if(s == null || s.Length == 0) return 0;
+//         map.Add("", 1);
+//         return helper(s);
+//     }
+
+//     private int helper(string s){
+//         if(map.ContainsKey(s)) return map[s];
+//         if(s[0] == '0') return 0;
+//         if(s.Length == 1) return 1;
+
+//         int count = helper(s.Substring(1));
+//         int prefix = int.Parse(s.Substring(0, 2));
+
+//         if(prefix <= 26){
+//             count += helper(s.Substring(2));
+//         }
+
+//         map[s] = count;
+//         return count;
+//     }
+    
+// }
+
 public class Solution {
-    Dictionary<string, int> map = new Dictionary<string, int>();
+    Dictionary<int, int> map = new Dictionary<int, int>();
     public int NumDecodings(string s) {
-        //basic memorization recurtion way
+        //optimized memorization recurtion way
         if(s == null || s.Length == 0) return 0;
-        map.Add("", 1);
-        return helper(s);
+        //map.Add("", 1);
+        return helper(s, 0, s.Length - 1);
     }
 
-    private int helper(string s){
-        if(map.ContainsKey(s)) return map[s];
-        if(s[0] == '0') return 0;
-        if(s.Length == 1) return 1;
+    private int helper(string s, int left, int right){
+        // top down memo dp?
+        // optimize the substring part, save o(n) space, left start index, right termination index, every operation is O(1)
+        if(map.ContainsKey(left)) return map[left];
+        if(left <= right && s[left] == '0') return 0;
+        if(left >= right) return 1;
 
-        int count = helper(s.Substring(1));
-        int prefix = int.Parse(s.Substring(0, 2));
+        int count = helper(s, left + 1, right);
+        int prefix = (s[left] - '0') * 10 + (s[left + 1] - '0');
 
         if(prefix <= 26){
-            count += helper(s.Substring(2));
+            count += helper(s, left + 2, right);
         }
 
-        map[s] = count;
+        map[left] = count;
         return count;
     }
+    
 }
-
