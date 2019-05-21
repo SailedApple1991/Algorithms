@@ -1,0 +1,23 @@
+/*
+ * @lc app=leetcode id=100 lang=csharp
+ *
+ * [100] Same Tree
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) { val = x; }
+ * }
+ */
+ //DFS Time Complexity: O( 2 * log n ) ???? Space Complexity: O(m + n)
+public class Solution {
+    public bool IsSameTree(TreeNode p, TreeNode q) {
+        if(p == null && q == null) return true;
+        if(p == null || q == null) return false;
+        return p.val == q.val && IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+    }
+}
+
