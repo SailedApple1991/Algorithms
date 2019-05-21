@@ -9,11 +9,12 @@ public class Solution {
         public int x;
         public int y;
         public Point(int x, int y){
-            x = x;
-            y = y;
+            this.x = x;
+            this.y = y;
     }
     }
     public int NumIslands(char[][] grid) {
+        //if(grid == null || grid.Length == 0 || grid[0].Length == 0) return 0;
         int count = 0;
         Queue<Point> queue = new Queue<Point>();
         for(int i = 0; i < grid.Length; i++){
@@ -42,7 +43,6 @@ public class Solution {
                 if(grid[pt.x][pt.y] == '1'){
                     queue.Enqueue(pt);
                     grid[pt.x][pt.y] = '0';
-                
                 }
                 }
             }
