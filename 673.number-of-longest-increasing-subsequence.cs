@@ -4,41 +4,42 @@
  * [673] Number of Longest Increasing Subsequence
  */
 public class Solution {
-    public int FindNumberOfLIS(int[] nums) {
-        int max = 1;
-        int[,] dp =  new int[nums.Length, nums.Length];
-         for(int i = 0; i < nums.Length; i++){
-            for(int j = 0; j < nums.Length; j++){
-                dp[i, j] = 1;
-            }
-        }
+//     * len[k] = max(len[k], len[i] + 1), for all 0 <= i < k and nums[i] < nums[k] 
+// * cnt[k] = sum(cnt[i]), for all 0 <= i < k and len[k] = len[i] + 1
 
-        for(int i = 0; i < nums.Length; i++){
-            for(int j = i; j < nums.Length; j++){
-                // if(i == j|| dp[i,j] == 0){
-                //     dp[i, j] = 1;
-                   
-                // }
-                // else{
-                    if(nums[j - 1] <= nums[j]){
-                        dp[i, j] = dp[i, j - 1] + 1;
-                        max = max < dp[i, j] ? dp[i, j] : max;
-                    }
-                
-                //}
-            }
+    public int FindNumberOfLIS(int[] nums) {
+        int max = 0, ans = 0;
+        int[] len = new int[nums.Length];
+        int[] cnt = new int[nums.Length];
+        for(int i =0; i < nums.Length; i++){
+            len[i] = 1;
+            cnt[i] = 1;
         }
-        int count = 0;
-        for(int i = 0; i < nums.Length; i++){
-            for(int j = 0; j < nums.Length; j++){
-                if(max == dp[i,j]){
-                    count++;
+        for(int i = 1; i < nums.Length; i++){
+            for(int j = 0; j < i; j++){
+                if(nums[j] < nums[i]){
+                    if(len[j] >= len[i]){
+                        len[i] = len[j] + 1;
+                        cnt[i] = cnt[j];
+                        
+                    }
+                   else if(len[j] + 1 == len[i]){
+                       cnt[i] += cnt[j];
+                   }
                 }
             }
         }
 
-        return count;
+        for(int i = 0; i < len.Length; i++){
+            max = max > len[i] ? max : len[i];
+        }
 
+        for(int i = 0; i < len.Length; i++){
+            if(len[i] == max){
+                ans += cnt[i];
+            }
+        }
+        return ans;
     }
 }
 
