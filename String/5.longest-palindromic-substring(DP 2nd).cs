@@ -8,7 +8,7 @@ public class Solution {
         //DP dp[][]
         //Base Case : dp[i][i] = 1;
         //dp[i][j] = dp[i+1][j-1] + 2 if s[i] == s[j]
-        //if s[i] != s[j] then dp[i][j] = max(dp[i][j - 1], dp[i + 1][j])
+        //if s[i] != s[j] then dp[i][j] = max(dp[i][j - 1], dp[i + 1][j]) not really this is subsequence?
         if(s == null || s.Length < 2){
             return s;
         }
