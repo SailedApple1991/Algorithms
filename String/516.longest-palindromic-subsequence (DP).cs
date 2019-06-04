@@ -5,7 +5,7 @@
  */
  //DP -- case 1: when i == j s[i] == s[j]
  // ---- case 2: when i != j s[i] == s[j] dp[i][j] == dp[i+1][j-1] + 2
- // ---- case 3: when i != j s[i] != s[j] dp[i + 1][j] == dp[i][j - 1] 
+ // ---- case 3: when i != j s[i] != s[j] max from dp[i + 1][j], dp[i][j - 1] 
  //Time Complexity : O（n^2), space: O(n^2)
 public class Solution {
     public int LongestPalindromeSubseq(string s) {
